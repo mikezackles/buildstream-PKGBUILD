@@ -1,6 +1,6 @@
 # Maintainer: Rafael Fontenelle <rafaelff@gnome.org>
 pkgname=buildstream
-pkgver=1.6.1
+pkgver=1.6.2
 pkgrel=1
 pkgdesc="A powerful and flexible software integration toolset"
 arch=('any')
@@ -19,19 +19,18 @@ depends=(
     python-ruamel-yaml
     python-six
     python-ujson
-    # specific host site dependencies
-    bzr git lzip ostree python-arpy
 )
+optdepends=(bzr git lzip ostree python-arpy)
 makedepends=(python-setuptools cython)
-source=("https://download.gnome.org/sources/BuildStream/${pkgver%.*}/BuildStream-$pkgver.tar.xz")
-sha256sums=('2ba614e13c0641c28e27dc3c41e5b2418e729a9e39ffc06064b8b713390a6b5c')
+source=("https://github.com/apache/buildstream/archive/refs/tags/$pkgver.tar.gz")
+sha256sums=('134dd7ce95e6846ccd36c6e8c8f74af038dcc3010a0287e67a6ae59d31e0ff7f')
 
 build() {
-  cd BuildStream-$pkgver
+  cd buildstream-$pkgver
   python setup.py build
 }
 
 package() {
-  cd BuildStream-$pkgver
+  cd buildstream-$pkgver
   python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
 }
